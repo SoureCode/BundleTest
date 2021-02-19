@@ -5,11 +5,12 @@ namespace SoureCode\BundleTest\Configurator;
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
-use function in_array;
 use SoureCode\BundleTest\Exception\RuntimeException;
 use SoureCode\BundleTest\Kernel\TestKernel;
+use Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use function in_array;
 
 final class KernelConfigurator
 {
@@ -24,20 +25,6 @@ final class KernelConfigurator
             ],
         ],
     ];
-
-    /**
-     * @param class-string<Bundle> $bundle
-     */
-    public function extend(string $bundle, array $configuration): void
-    {
-        if (!in_array($bundle, $this->bundleConfigurations, true)) {
-            throw new RuntimeException('You musst set the bundle first, before you can extend it.');
-        }
-
-        $config = $this->bundleConfigurations[$bundle][1];
-
-        $this->bundleConfigurations[$bundle][1] = array_merge($config, [$configuration]);
-    }
 
     public function setDAMA(): void
     {
@@ -56,6 +43,36 @@ final class KernelConfigurator
             $namespace,
             [$configuration],
         ];
+    }
+
+    public function extendDoctrineExtensions(array $configuration): void
+    {
+        $this->extend('stof_doctrine_extensions', $configuration);
+    }
+
+    /**
+     * @param class-string<Bundle> $bundle
+     */
+    public function extend(string $bundle, array $configuration): void
+    {
+        if (!in_array($bundle, $this->bundleConfigurations, true)) {
+            throw new RuntimeException('You musst set the bundle first, before you can extend it.');
+        }
+
+        $config = $this->bundleConfigurations[$bundle][1];
+
+        $this->bundleConfigurations[$bundle][1] = array_merge($config, [$configuration]);
+    }
+
+    public function setDoctrineExtensions(): void
+    {
+        $this->setBundle(
+            StofDoctrineExtensionsBundle::class,
+            'stof_doctrine_extensions',
+            [
+                'default_locale' => 'en_US',
+            ]
+        );
     }
 
     public function setDoctrine(array $mappings = []): void
