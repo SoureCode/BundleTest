@@ -1,0 +1,54 @@
+{
+    "name": "sourecode/bundle-test",
+    "description": "Provides a test kernel and different test cases to test out bundles.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Schilling",
+            "email": "jason@sourecode.dev"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SoureCode\\BundleTest\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.0",
+        "phpunit/phpunit": "^9.3",
+        "symfony/phpunit-bridge": "^5.2",
+        "symfony/framework-bundle": "^5.2",
+        "symfony/dependency-injection": "^5.2",
+        "symfony/console": "^5.2",
+        "doctrine/doctrine-bundle": "^2.2",
+        "dama/doctrine-test-bundle": "^6.5",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "symfony/http-kernel": "^5.2"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^v2.18",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-deprecation-rules": "^0.12",
+        "phpstan/phpstan-doctrine": "^0.12.30",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "slam/phpstan-extensions": "^v5.1",
+        "thecodingmachine/phpstan-strict-rules": "^0.12",
+        "vimeo/psalm": "^4.4",
+        "weirdan/doctrine-psalm-plugin": "^1.0"
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "psalm": "vendor/bin/psalm --show-info=false --no-cache --output-format=phpstorm",
+        "psalm-ci": "vendor/bin/psalm --show-info=false",
+        "cs-fix": "vendor/bin/php-cs-fixer fix",
+        "cs-check": "vendor/bin/php-cs-fixer fix --dry-run"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
