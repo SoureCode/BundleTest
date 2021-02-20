@@ -47,7 +47,7 @@ final class KernelConfigurator
 
     public function extendDoctrineExtensions(array $configuration): void
     {
-        $this->extend('stof_doctrine_extensions', $configuration);
+        $this->extend(StofDoctrineExtensionsBundle::class, $configuration);
     }
 
     /**
