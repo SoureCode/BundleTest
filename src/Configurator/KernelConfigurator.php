@@ -55,7 +55,7 @@ final class KernelConfigurator
      */
     public function extend(string $bundle, array $configuration): void
     {
-        if (!in_array($bundle, $this->bundleConfigurations, true)) {
+        if (!array_key_exists($bundle, $this->bundleConfigurations)) {
             throw new RuntimeException('You musst set the bundle first, before you can extend it.');
         }
 
