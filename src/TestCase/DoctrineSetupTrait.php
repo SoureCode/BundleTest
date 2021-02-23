@@ -2,7 +2,7 @@
 
 namespace SoureCode\BundleTest\TestCase;
 
-abstract class AbstractDoctrineTestCase extends AbstractKernelTestCase
+trait DoctrineSetupTrait
 {
     protected function setupDoctrine(): void
     {

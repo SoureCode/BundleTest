@@ -13,6 +13,8 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 abstract class AbstractKernelTestCase extends KernelTestCase
 {
+    use DoctrineSetupTrait;
+
     protected static ?KernelConfigurator $kernelConfigurator = null;
 
     protected static function createKernel(array $options = []): KernelInterface
