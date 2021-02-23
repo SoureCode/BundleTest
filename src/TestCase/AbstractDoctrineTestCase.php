@@ -4,17 +4,15 @@ namespace SoureCode\BundleTest\TestCase;
 
 abstract class AbstractDoctrineTestCase extends AbstractKernelTestCase
 {
-    protected function setUp(): void
+    protected function setupDoctrine(): void
     {
-        parent::setUp();
+        $configurator = static::getKernelConfigurator();
 
-        if (static::$kernelConfigurator) {
-            $mappings = $this->getDoctrineMappings();
-            $migrations = $this->getDoctrineMigrations();
+        $mappings = $this->getDoctrineMappings();
+        $migrations = $this->getDoctrineMigrations();
 
-            static::$kernelConfigurator->setDoctrine($mappings);
-            static::$kernelConfigurator->setDoctrineMigrations($migrations);
-        }
+        $configurator->setDoctrine($mappings);
+        $configurator->setDoctrineMigrations($migrations);
     }
 
     abstract protected function getDoctrineMappings(): array;

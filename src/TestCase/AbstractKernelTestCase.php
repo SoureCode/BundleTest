@@ -17,16 +17,18 @@ abstract class AbstractKernelTestCase extends KernelTestCase
 
     protected static function createKernel(array $options = []): KernelInterface
     {
-        if (!static::$kernelConfigurator) {
-            throw new RuntimeException('KernelConfigurator is not set up properly.');
-        }
+        $configurator = static::getKernelConfigurator();
 
-        return static::$kernelConfigurator->build();
+        return $configurator->build();
     }
 
-    protected function setUp(): void
+    protected static function getKernelConfigurator(): KernelConfigurator
     {
-        static::$kernelConfigurator = new KernelConfigurator();
+        if (null === static::$kernelConfigurator) {
+            static::$kernelConfigurator = new KernelConfigurator();
+        }
+
+        return static::$kernelConfigurator;
     }
 
     protected function tearDown(): void
@@ -39,7 +41,9 @@ abstract class AbstractKernelTestCase extends KernelTestCase
 
         parent::tearDown();
 
-        static::$kernelConfigurator = null;
+        if (null !== static::$kernelConfigurator) {
+            static::$kernelConfigurator = null;
+        }
     }
 
     protected function runCommand(array $command): void
