@@ -2,13 +2,13 @@
 
 namespace SoureCode\BundleTest\Kernel;
 
-use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use const GLOB_MARK;
 use function is_array;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 final class TestKernel extends Kernel
 {
@@ -76,7 +76,7 @@ final class TestKernel extends Kernel
         }
     }
 
-    protected function configureRoutes(RoutingConfigurator $routes): void {
-
+    protected function configureRoutes(RoutingConfigurator $routes): void
+    {
     }
 }
