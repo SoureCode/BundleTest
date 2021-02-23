@@ -2,6 +2,7 @@
 
 namespace SoureCode\BundleTest\Configurator;
 
+use function array_key_exists;
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
@@ -10,7 +11,6 @@ use SoureCode\BundleTest\Kernel\TestKernel;
 use Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use function array_key_exists;
 
 final class KernelConfigurator
 {

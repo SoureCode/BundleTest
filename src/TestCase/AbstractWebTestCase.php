@@ -5,19 +5,12 @@ namespace SoureCode\BundleTest\TestCase;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestAssertionsTrait;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
-abstract class AbstractWebTestCase extends WebTestCase
+abstract class AbstractWebTestCase extends AbstractKernelTestCase
 {
     use WebTestAssertionsTrait;
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        self::getClient(null);
-    }
 
     protected static function createClient(array $options = [], array $server = []): AbstractBrowser
     {
@@ -39,5 +32,11 @@ abstract class AbstractWebTestCase extends WebTestCase
         $client->setServerParameters($server);
 
         return self::getClient($client);
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        self::getClient(null);
     }
 }

@@ -46,13 +46,11 @@ abstract class AbstractKernelTestCase extends KernelTestCase
         }
     }
 
-    protected function runCommand(array $command): void
+    protected static function runCommand(array $command): void
     {
-        if (!static::$booted) {
-            throw new RuntimeException('Kernel musst be booted before run command.');
-        }
+        $kernel = static::$booted ? static::$kernel : static::bootKernel();
 
-        $application = new Application(static::$kernel);
+        $application = new Application($kernel);
         $application->setAutoExit(false);
 
         $input = new ArrayInput($command);

@@ -19,25 +19,25 @@ trait DoctrineSetupTrait
 
     abstract protected function getDoctrineMigrations(): array;
 
-    protected function clearDatabase(): void
+    protected static function clearDatabase(): void
     {
-        $this->runCommand(
+        static::runCommand(
             [
                 'command' => 'doctrine:database:drop',
                 '--force' => true,
             ]
         );
 
-        $this->runCommand(
+        static::runCommand(
             [
                 'command' => 'doctrine:database:create',
             ]
         );
     }
 
-    protected function prepareDatabase(): void
+    protected static function prepareDatabase(): void
     {
-        $this->runCommand(
+        static::runCommand(
             [
                 'command' => 'doctrine:migrations:migrate',
                 '--no-interaction' => true,
