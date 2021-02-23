@@ -16,11 +16,14 @@ final class TestKernel extends Kernel
 
     private array $bundleConfigurations;
 
-    public function __construct(array $bundleConfigurations)
+    private array $routeFiles;
+
+    public function __construct(array $bundleConfigurations, array $routeFiles)
     {
         parent::__construct('test', true);
 
         $this->bundleConfigurations = $bundleConfigurations;
+        $this->routeFiles = $routeFiles;
     }
 
     public function clear(): void
@@ -78,5 +81,10 @@ final class TestKernel extends Kernel
 
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
+        foreach ($this->routeFiles as $routeFile) {
+            if (is_file($path = $routeFile)) {
+                (require $path)($routes->withPath($path), $this);
+            }
+        }
     }
 }
