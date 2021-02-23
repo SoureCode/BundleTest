@@ -10,7 +10,7 @@ use SoureCode\BundleTest\Kernel\TestKernel;
 use Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use function in_array;
+use function array_key_exists;
 
 final class KernelConfigurator
 {
@@ -21,6 +21,7 @@ final class KernelConfigurator
                 [
                     'secret' => 'foo',
                     'router' => ['utf8' => true],
+                    'default_locale' => 'en',
                 ],
             ],
         ],

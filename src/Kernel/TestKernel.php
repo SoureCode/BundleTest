@@ -2,6 +2,7 @@
 
 namespace SoureCode\BundleTest\Kernel;
 
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use const GLOB_MARK;
 use function is_array;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -73,5 +74,9 @@ final class TestKernel extends Kernel
                 }
             }
         }
+    }
+
+    protected function configureRoutes(RoutingConfigurator $routes): void {
+
     }
 }
