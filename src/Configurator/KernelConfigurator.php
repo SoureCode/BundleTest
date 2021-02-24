@@ -28,7 +28,7 @@ final class KernelConfigurator
     ];
 
     private array $routeFiles = [];
-    private array $serviceFiles;
+    private array $serviceFiles = [];
 
     public function addServiceFile(string $file)
     {
