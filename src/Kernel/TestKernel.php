@@ -17,13 +17,15 @@ final class TestKernel extends Kernel
     private array $bundleConfigurations;
 
     private array $routeFiles;
+    private array $serviceFiles;
 
-    public function __construct(array $bundleConfigurations, array $routeFiles)
+    public function __construct(array $bundleConfigurations, array $routeFiles, $containerFiles)
     {
         parent::__construct('test', true);
 
         $this->bundleConfigurations = $bundleConfigurations;
         $this->routeFiles = $routeFiles;
+        $this->serviceFiles = $containerFiles;
     }
 
     public function clear(): void
@@ -68,6 +70,12 @@ final class TestKernel extends Kernel
 
     protected function configureContainer(ContainerConfigurator $container): void
     {
+        foreach ($this->serviceFiles as $serviceFile) {
+            if (is_file($path = $serviceFile)) {
+                (require $path)($container->withPath($path), $this);
+            }
+        }
+
         foreach ($this->bundleConfigurations as [$namespace, $config]) {
             $configs = is_array($config) ? $config : [$config];
 

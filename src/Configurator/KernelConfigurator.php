@@ -28,6 +28,12 @@ final class KernelConfigurator
     ];
 
     private array $routeFiles = [];
+    private array $serviceFiles;
+
+    public function addServiceFile(string $file)
+    {
+        $this->serviceFiles[] = $file;
+    }
 
     public function addRouteFile(string $file)
     {
@@ -53,11 +59,6 @@ final class KernelConfigurator
         ];
     }
 
-    public function extendDoctrineExtensions(array $configuration): void
-    {
-        $this->extend(StofDoctrineExtensionsBundle::class, $configuration);
-    }
-
     /**
      * @param class-string<Bundle> $bundle
      */
@@ -70,17 +71,6 @@ final class KernelConfigurator
         $config = $this->bundleConfigurations[$bundle][1];
 
         $this->bundleConfigurations[$bundle][1] = array_merge($config, [$configuration]);
-    }
-
-    public function setDoctrineExtensions(): void
-    {
-        $this->setBundle(
-            StofDoctrineExtensionsBundle::class,
-            'stof_doctrine_extensions',
-            [
-                'default_locale' => 'en_US',
-            ]
-        );
     }
 
     public function setDoctrine(array $mappings = []): void
@@ -115,6 +105,6 @@ final class KernelConfigurator
 
     public function build(): TestKernel
     {
-        return new TestKernel($this->bundleConfigurations, $this->routeFiles);
+        return new TestKernel($this->bundleConfigurations, $this->routeFiles, $this->serviceFiles);
     }
 }
